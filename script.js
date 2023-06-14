@@ -8,7 +8,7 @@ async function getRandomCard(){
     reset();
     await wait(150);
     try{
-        const response = await fetch("https://api.scryfall.com/cards/random?q=game:paper&unique=cards");
+        const response = await fetch("https://api.scryfall.com/cards/random?q=game:paper+tag:meme&unique=cards");
         const data = await response.json();
         htmltext.innerHTML = data["name"];
         try{
