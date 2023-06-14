@@ -1,0 +1,44 @@
+.image{
+    height: auto;
+    width: 49%;
+}
+
+.tinyImage{
+    height: 150px;
+    width: auto;
+    padding: 0px 5px;
+}
+
+.grid{
+    display: flex;
+    justify-content: center;
+}
+
+.grid > div{
+    width: 40%;
+}
+
+h1{
+    text-align: center;
+}
+
+button{
+    padding: 5px 10px;
+}
+
+#history-side{
+    width: 60%;
+    padding-left: 10px;
+}
+
+#history{
+    display: inline-block;
+    justify-content: center;
+}
+
+/*body{
+    backdrop-filter: blur(10px);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}*/
