@@ -3,12 +3,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Simulador de Selado</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>Aqui vai o selado</p>
-    
+    <h1>Simulador de Selado</h1>
+    <div id="options">
+        <input type="text" placeholder="Código da edição" id="set">
+        <button type="button" onclick="checkSet(document.getElementById('set').value)">Buscar</button>
+    </div>
+    <!--<select name="Set" id="options">
+        <option value="null">None</option>
+        <option value="KHM">Kaldheim</option>
+        <option value="NEO">Kamigawa: Neon Dynasty</option>
+    </select>-->
     <script src="script.js"></script>
 </body>
 </html>
