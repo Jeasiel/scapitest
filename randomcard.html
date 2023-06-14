@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random card test</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1>Random Card Test</h1>
+    <div class="grid">
+        <div>
+            <button onclick="getRandomCard()">Procurar</button>
+            <h3 id="title">Nome da carta</h3>
+            <img src="magic_card_back.png" alt="Imagem" id="cardImage" class="image">
+            <img id="cardImage2" class="image">
+            <p id="set">Set: SET</p>
+        </div>
+        <div id="history-side">
+            <h3>Últimas cartas:</h3>
+            <div class="container" id="history">
+            <!--    <img src="magic_card_back.png" class="tinyImage"> -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
