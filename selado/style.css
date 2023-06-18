@@ -5,3 +5,18 @@ h1{
 #options{
     display: inline-block;
 }
+
+/**#boosterArea{
+    display: none;
+}**/
+
+.booster{
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.booster > div > img{
+    padding: 0px 2px;
+    height: 250px;
+    width: auto;
+}
