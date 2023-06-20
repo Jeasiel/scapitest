@@ -8,6 +8,5 @@ Para fazer:
     opções - boosters + terrenos básicos + cmc + número de cartas em cada cmc - confirmação de que terminou
     - mostrar lista do deck e botão de reset
 
-Corrigir:
-- DFC mostrando a face ao contrário
-- Talvez apenas raras
+toques finais:
+- terrenos básicos

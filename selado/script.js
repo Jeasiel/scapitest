@@ -19,12 +19,12 @@ async function checkSet(code){
                 setField.focus();
                 console.error("Erro! " + data["status"]);
                 passed = false;
-                setYear = Number(data["released_at"].slice(0, 4));
             } else {
                 const confirm = document.createElement("p");
                 confirm.innerText = "Tudo certo! Vamos ao próximo passo.";
                 document.getElementById("options").appendChild(confirm);
                 passed = true;
+                setYear = Number(data["released_at"].slice(0, 4));
             }
         } catch(error){
             console.error(error);
@@ -32,7 +32,6 @@ async function checkSet(code){
         //os 6 booster
         for(let i = 0; i < 6; i++){
             await createBooster(code, i, setYear);
-            console.log("Booster " + i);
             await wait(150);
         }
     }
@@ -52,8 +51,8 @@ async function createBooster(code, number, setYear){
         if(i == 1){
             //basic
             data = await getRandomCard("set:" + code + "+t:basic");
-            console.log("ID: " + i + " raridade: basic Nome: " + data["name"]);
         } else if(i == 2){
+            //foil
             if(Math.floor(Math.random() * 3) == 2){
                 data = await getRandomCard("set:" + code);
             } else {
@@ -62,19 +61,16 @@ async function createBooster(code, number, setYear){
         } else if(i > 2 && i <= 11){
             //comum
             data = await getRandomCard("set:" + code + "+r:c+-t:basic");
-            console.log("ID: " + i + " raridade: comum");
         } else if(i > 11 && i <= 14){
             //incomun
             data = await getRandomCard("set:" + code + "+r:u");
-            console.log("ID: " + i + " raridade: rara");
         } else if(i == 15){
             //mr/r
-            if(Math.floor(Math.random() * 8) != 7 && setYear > 2008){
+            if(Math.floor(Math.random() * 8) == 7 && setYear > 2008){
                 data = await getRandomCard("set:" + code + "+r:m");
             } else {
                 data = await getRandomCard("set:" + code + "+r:r");
             }
-            console.log("ID: " + i + " raridade: mr/r");
         }
         card.alt = data["name"];
         const checker = document.createElement("input");
@@ -104,7 +100,7 @@ async function getRandomCard(annex){
     try{
         const response = await fetch("https://api.scryfall.com/cards/random?q=game:paper+" + annex);
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         return data;
     } catch(error){
         console.error(error);
@@ -113,7 +109,36 @@ async function getRandomCard(annex){
 }
 
 function getAllCards(){
-    console.log(document.getElementsByClassName("checkbox"));
+    const allCards = document.getElementsByClassName("checkbox");
+    let checkedCards = new Array();
+    for(let i = 0; i < allCards.length; i++){
+        if(allCards[i].checked){
+            checkedCards.push([allCards[i].value, 1]);
+            console.log(allCards[i]);
+        }
+    }
+    let fixedCardList = new Array();
+    for(let i = 0; i < checkedCards.length; i++){
+        if(i != 0){
+            let found = false;
+            for(let j = 0; j < fixedCardList.length; j++){
+                if(checkedCards[i][0] == fixedCardList[j][0]){
+                    fixedCardList[j][1] += 1;
+                    found = true;
+                }
+            }
+            if(!found){
+                fixedCardList.push(checkedCards[i]);
+            }
+        } else {
+            fixedCardList.push(checkedCards[i]);
+        }
+        //checar repetições
+    }
+    for(let j = 0; j < fixedCardList.length; j++){
+        console.log(fixedCardList[j]);
+    }
+    //console.log(document.getElementsByClassName("checkbox"));
 }
 
 function wait(time) {
