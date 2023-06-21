@@ -6,17 +6,34 @@ h1{
     display: inline-block;
 }
 
-/**#boosterArea{
+#listaArea, #basics{
     display: none;
-}**/
+}
+
+#basics > div{
+    width: 15%;
+    display: inline-grid;
+    justify-items: center;
+    padding-bottom: 20px;
+}
+
+#basics > div > input {
+    width: 50px;
+}
 
 .booster{
-    display: inline-block;
+    display: inline-grid;
     padding-bottom: 10px;
 }
 
 .booster > div > img{
-    padding: 0px 2px;
+    padding: 2px 2px;
     height: 250px;
     width: auto;
+}
+
+.booster > div > input{
+    position: relative;
+    right: 20px;
+    bottom: 5px;
 }

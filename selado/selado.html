@@ -12,15 +12,39 @@
         <input type="text" placeholder="Código da edição" id="set">
         <button type="button" onclick="checkSet(document.getElementById('set').value)">Buscar</button>
     </div>
-    <!--<select name="Set" id="options">
-        <option value="null">None</option>
-        <option value="KHM">Kaldheim</option>
-        <option value="NEO">Kamigawa: Neon Dynasty</option>
-    </select>-->
     <div id="boosterArea">
         <!--6 boosters-->
     </div>
-    <button onclick="getAllCards()">BJINML</button>
+    <div id="basics">
+        <div>
+            <p>Planícies:</p>
+            <input type="number" name="Plains" class="basic">
+        </div>
+        <div>
+            <p>Montanhas:</p>
+            <input type="number" name="Moutain" class="basic">
+        </div>
+        <div>
+            <p>Ilhas:</p>
+            <input type="number" name="Island" class="basic">
+        </div>
+        <div>
+            <p>Florestas:</p>
+            <input type="number" name="Forest" class="basic">
+        </div>
+        <div>
+            <p>Pântanos:</p>
+            <input type="number" name="Swamp" class="basic">
+        </div>
+        <div>
+            <p>Ermos (Wastes):</p>
+            <input type="number" name="Wastes" class="basic">
+        </div>
+    </div>
+    <div id="listaArea">
+        <button onclick="getAllCards()">Passar deck para texto</button>
+        <p id="lista">Lista:</p>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

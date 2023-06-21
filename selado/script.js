@@ -29,10 +29,15 @@ async function checkSet(code){
         } catch(error){
             console.error(error);
         }
-        //os 6 booster
-        for(let i = 0; i < 6; i++){
-            await createBooster(code, i, setYear);
-            await wait(150);
+        if(passed){
+            //os 6 booster
+            for(let i = 0; i < 6; i++){
+                await createBooster(code, i, setYear);
+                await wait(150);
+            }
+            document.getElementById("listaArea").style.display = "contents";
+            document.getElementById("basics").style.display = "contents";
+            document.getElementById("options").style.display = "none";
         }
     }
 }
@@ -45,32 +50,33 @@ async function createBooster(code, number, setYear){
     booster.appendChild(pack);
     const element = document.createElement("div");
     //15: 1 Basica, 10 comuns, 3 incomuns, 1 rara/mítica
-    for(let i = 1; i <= 15; i++){
+    for(let i = 1; i < 15; i++){
         const card = document.createElement("img");
         var data;
-        if(i == 1){
-            //basic
-            data = await getRandomCard("set:" + code + "+t:basic");
-        } else if(i == 2){
-            //foil
-            if(Math.floor(Math.random() * 3) == 2){
-                data = await getRandomCard("set:" + code);
-            } else {
-                data = await getRandomCard("set:" + code + "+r:c");
+        try{
+            if(i == 1){
+                //foil
+                if(Math.floor(Math.random() * 3) == 2){
+                    data = await getRandomCard("set:" + code);
+                } else {
+                    data = await getRandomCard("set:" + code + "+r:c");
+                }
+            } else if(i > 1 && i <= 10){
+                //comum
+                data = await getRandomCard("set:" + code + "+r:c+-t:basic");
+            } else if(i > 10 && i <= 13){
+                //incomun
+                data = await getRandomCard("set:" + code + "+r:u");
+            } else if(i == 14){
+                //mr/r
+                if(Math.floor(Math.random() * 8) == 7 && setYear > 2008){
+                    data = await getRandomCard("set:" + code + "+r:m");
+                } else {
+                    data = await getRandomCard("set:" + code + "+r:r");
+                }
             }
-        } else if(i > 2 && i <= 11){
-            //comum
-            data = await getRandomCard("set:" + code + "+r:c+-t:basic");
-        } else if(i > 11 && i <= 14){
-            //incomun
-            data = await getRandomCard("set:" + code + "+r:u");
-        } else if(i == 15){
-            //mr/r
-            if(Math.floor(Math.random() * 8) == 7 && setYear > 2008){
-                data = await getRandomCard("set:" + code + "+r:m");
-            } else {
-                data = await getRandomCard("set:" + code + "+r:r");
-            }
+        } catch(error) {
+            console.log(error);
         }
         card.alt = data["name"];
         const checker = document.createElement("input");
@@ -83,9 +89,9 @@ async function createBooster(code, number, setYear){
         } catch(error){
             if(data["card_faces"].length > 1){
                 const img2 = document.createElement("img");
-                card.src = data["card_faces"]["1"]["image_uris"]["normal"];
+                card.src = data["card_faces"]["0"]["image_uris"]["normal"];
                 element.appendChild(card);
-                img2.src = data["card_faces"]["0"]["image_uris"]["normal"];
+                img2.src = data["card_faces"]["1"]["image_uris"]["normal"];
                 element.appendChild(img2);
             }
         }
@@ -135,9 +141,24 @@ function getAllCards(){
         }
         //checar repetições
     }
+    let texto = "Lista:\n";
+    let num = 0;
     for(let j = 0; j < fixedCardList.length; j++){
-        console.log(fixedCardList[j]);
+        texto += fixedCardList[j][1] + " " + fixedCardList[j][0] + "\n";
+        num += Number(fixedCardList[j][1]);
     }
+    const basics = document.getElementsByClassName("basic");
+    for(let k = 0; k < basics.length; k++){
+        if(!basics[k].value <= 0){
+            texto += basics[k].value + " " + basics[k].name + "\n";
+            num += Number(basics[k].value);
+        }
+    }
+    if(num < 40){
+        alert("Seu deck precisa conter 40 cartas no mínimo. Número atual: " + num);
+        texto = "Lista\n";
+    }
+    document.getElementById("lista").innerText = texto;
     //console.log(document.getElementsByClassName("checkbox"));
 }
 
