@@ -2,7 +2,7 @@ const setField = document.getElementById("set");
 let passed = false;
 
 async function checkSet(code){
-    if(code == "" || code.length != 3){
+    if(code == "" || code.length != 3 || code.toLowerCase() == "mat"){
         setField.style.outlineColor = "red";
         setField.focus();
     } else if(!passed) {
@@ -14,14 +14,18 @@ async function checkSet(code){
             const data = await response.json();
             console.log(data);
             setField.style.outlineColor = "black";
-            if (data["status"] != undefined){
+            if (data["status"] != undefined || (data["set_type"] != "expansion" && data["set_type"] != "core")){
                 setField.style.outlineColor = "red";
                 setField.focus();
-                console.error("Erro! " + data["status"]);
+                if(data["status"] == undefined){
+                    console.error("A edição é anormal. Tipo da edição: " + data["set_type"]);
+                } else {
+                    console.error("Erro: " + data["status"]);
+                }
                 passed = false;
             } else {
                 const confirm = document.createElement("p");
-                confirm.innerText = "Tudo certo! Vamos ao próximo passo.";
+                confirm.innerText = "Construindo boosters...";
                 document.getElementById("options").appendChild(confirm);
                 passed = true;
                 setYear = Number(data["released_at"].slice(0, 4));
@@ -139,9 +143,8 @@ function getAllCards(){
         } else {
             fixedCardList.push(checkedCards[i]);
         }
-        //checar repetições
     }
-    let texto = "Lista:\n";
+    let texto = "";
     let num = 0;
     for(let j = 0; j < fixedCardList.length; j++){
         texto += fixedCardList[j][1] + " " + fixedCardList[j][0] + "\n";
@@ -149,17 +152,16 @@ function getAllCards(){
     }
     const basics = document.getElementsByClassName("basic");
     for(let k = 0; k < basics.length; k++){
-        if(!basics[k].value <= 0){
+        if(basics[k].value > 0){
             texto += basics[k].value + " " + basics[k].name + "\n";
             num += Number(basics[k].value);
         }
     }
     if(num < 40){
         alert("Seu deck precisa conter 40 cartas no mínimo. Número atual: " + num);
-        texto = "Lista\n";
+        texto = "";
     }
-    document.getElementById("lista").innerText = texto;
-    //console.log(document.getElementsByClassName("checkbox"));
+    document.getElementById("lista").innerText = "Lista:\n" + texto;
 }
 
 function wait(time) {
