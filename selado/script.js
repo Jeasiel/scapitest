@@ -89,6 +89,7 @@ async function createBooster(code, number, setYear, setName){
         checker.type = "checkbox";
         checker.value = data["name"];
         checker.className = "checkbox";
+        card.appendChild(checker);
         try{            
             card.src = data["image_uris"]["normal"];
             element.appendChild(card);
@@ -101,8 +102,7 @@ async function createBooster(code, number, setYear, setName){
                 element.appendChild(img2);
             }
         }
-        card.appendChild(checker);
-        element.appendChild(checker);
+        //element.appendChild(checker);
         booster.appendChild(element);
     }
     document.getElementById("boosterArea").appendChild(booster);
