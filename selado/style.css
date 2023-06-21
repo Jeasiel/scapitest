@@ -27,8 +27,12 @@ h1{
     padding-bottom: 10px;
 }
 
+.booster > div{
+    width:50%;
+}
+
 .booster > div > img{
-    padding: 2px 0px;
+    padding: 0px 2px;
     height: 250px;
     width: auto;
 }
