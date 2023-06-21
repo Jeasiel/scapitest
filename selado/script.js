@@ -7,12 +7,13 @@ async function checkSet(code){
         setField.focus();
     } else if(!passed) {
         let setYear = 0;
+        let setName = "";
         try{
             passed = true;
             await wait(150);
             const response = await fetch("https://api.scryfall.com/sets/" + code);
             const data = await response.json();
-            console.log(data);
+            //console.log(data);
             setField.style.outlineColor = "black";
             if (data["status"] != undefined || (data["set_type"] != "expansion" && data["set_type"] != "core")){
                 setField.style.outlineColor = "red";
@@ -29,6 +30,7 @@ async function checkSet(code){
                 document.getElementById("options").appendChild(confirm);
                 passed = true;
                 setYear = Number(data["released_at"].slice(0, 4));
+                setName = data["name"];
             }
         } catch(error){
             console.error(error);
@@ -36,7 +38,7 @@ async function checkSet(code){
         if(passed){
             //os 6 booster
             for(let i = 0; i < 6; i++){
-                await createBooster(code, i, setYear);
+                await createBooster(code, i, setYear, setName);
                 await wait(150);
             }
             document.getElementById("listaArea").style.display = "contents";
@@ -46,11 +48,11 @@ async function checkSet(code){
     }
 }
 
-async function createBooster(code, number, setYear){
+async function createBooster(code, number, setYear, setName){
     const booster = document.createElement("div");
     booster.className = "booster";
     const pack = document.createElement("h2");
-    pack.innerText = "Pacote " + (number + 1);
+    pack.innerText = "Pacote " + (number + 1) + " - Set: " + setName;
     booster.appendChild(pack);
     const element = document.createElement("div");
     //15: 1 Basica, 10 comuns, 3 incomuns, 1 rara/mítica

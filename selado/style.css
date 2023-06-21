@@ -11,10 +11,11 @@ h1{
 }
 
 #basics > div{
-    width: 15%;
+    width: fit-content;
     display: inline-grid;
     justify-items: center;
     padding-bottom: 20px;
+    padding-right: 10px;
 }
 
 #basics > div > input {
@@ -22,12 +23,12 @@ h1{
 }
 
 .booster{
-    display: inline-grid;
+    display: inline-block;
     padding-bottom: 10px;
 }
 
 .booster > div > img{
-    padding: 2px 2px;
+    padding: 0px 2px;
     height: 250px;
     width: auto;
 }
