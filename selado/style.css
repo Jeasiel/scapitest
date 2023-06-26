@@ -28,10 +28,11 @@ h1{
 }
 
 .booster > div{
-    padding: 2px 0px;
+    width: fit-content;
 }
 
 .booster > div > img{
+    padding-left: 2px;
     height: 250px;
     width: auto;
 }
