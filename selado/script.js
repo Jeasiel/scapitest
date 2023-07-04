@@ -103,7 +103,12 @@ async function createBooster(code, number, setYear, setName){
             }
         }
         if(maxW){
-            card.children[0].style.width = "48%";
+            if(card.children.length > 2){
+                card.children[0].style.width = "40%";
+                card.children[1].style.width = "40%";
+                card.children[0].style.height = "auto";
+                card.children[1].style.height = "auto";
+            }
         }
         card.appendChild(checker);
         booster.appendChild(card);
