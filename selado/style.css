@@ -22,22 +22,18 @@ h1{
     width: 50px;
 }
 
-.booster{
+.booster > div{
     display: inline-block;
     padding-bottom: 10px;
 }
 
-.booster > div{
-    width: fit-content;
-}
-
 .booster > div > img{
-    height: 250px;
+    height: 260px;
     width: auto;
 }
 
 .booster > div > input{
     position: relative;
-    left: 20px;
+    right: 20px;
     bottom: 5px;
 }

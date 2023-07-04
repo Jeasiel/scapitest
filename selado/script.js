@@ -1,5 +1,6 @@
 const setField = document.getElementById("set");
 let passed = false;
+const maxW = window.matchMedia("(max-width: 500px)").matches;
 
 async function checkSet(code){
     if(code == "" || code.length != 3 || code.toLowerCase() == "mat"){
@@ -36,7 +37,6 @@ async function checkSet(code){
             console.error(error);
         }
         if(passed){
-            //os 6 booster
             for(let i = 0; i < 6; i++){
                 await createBooster(code, i, setYear, setName);
                 await wait(150);
@@ -54,10 +54,9 @@ async function createBooster(code, number, setYear, setName){
     const pack = document.createElement("h2");
     pack.innerText = "Pacote " + (number + 1) + " - Set: " + setName;
     booster.appendChild(pack);
-    const element = document.createElement("div");
-    //15: 1 Basica, 10 comuns, 3 incomuns, 1 rara/mítica
+    //15: 1 básica(fora), 10 comuns, 3 incomuns, 1 rara/mítica
     for(let i = 1; i < 15; i++){
-        const card = document.createElement("img");
+        const card = document.createElement("div");
         var data;
         try{
             if(i == 1){
@@ -84,27 +83,30 @@ async function createBooster(code, number, setYear, setName){
         } catch(error) {
             console.log(error);
         }
-        card.alt = data["name"];
         const checker = document.createElement("input");
         checker.type = "checkbox";
         checker.value = data["name"];
         checker.className = "checkbox";
-        element.appendChild(checker);
-        //card.appendChild(checker);
-        try{            
-            card.src = data["image_uris"]["normal"];
-            element.appendChild(card);
+
+        const img1 = document.createElement("img");
+        img1.alt = data["name"];
+        try{
+            img1.src = data["image_uris"]["normal"];
+            card.appendChild(img1);
         } catch(error){
             if(data["card_faces"].length > 1){
                 const img2 = document.createElement("img");
-                card.src = data["card_faces"]["0"]["image_uris"]["normal"];
-                element.appendChild(card);
+                img1.src = data["card_faces"]["0"]["image_uris"]["normal"];
+                card.appendChild(img1);
                 img2.src = data["card_faces"]["1"]["image_uris"]["normal"];
-                element.appendChild(img2);
+                card.appendChild(img2);
             }
         }
-        //element.appendChild(checker);
-        booster.appendChild(element);
+        if(maxW){
+            card.children[0].style.width = "48%";
+        }
+        card.appendChild(checker);
+        booster.appendChild(card);
     }
     document.getElementById("boosterArea").appendChild(booster);
 }
