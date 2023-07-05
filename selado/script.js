@@ -87,12 +87,19 @@ async function createBooster(code, number, setYear, setName){
         checker.type = "checkbox";
         checker.value = data["name"];
         checker.className = "checkbox";
+        checker.placeholder = "Quero";
+        checker.title = "select";
 
         const img1 = document.createElement("img");
         img1.alt = data["name"];
         try{
             img1.src = data["image_uris"]["normal"];
             card.appendChild(img1);
+            if(maxW){
+                img1.style.height = "27%";
+                img1.style.width = "auto";
+                console.log("Width menor que 500px: " + maxW);
+            }
         } catch(error){
             if(data["card_faces"].length > 1){
                 const img2 = document.createElement("img");
@@ -100,16 +107,15 @@ async function createBooster(code, number, setYear, setName){
                 card.appendChild(img1);
                 img2.src = data["card_faces"]["1"]["image_uris"]["normal"];
                 card.appendChild(img2);
+                if(maxW){
+                    img1.style.height = "27%";
+                    img1.style.width = "auto";
+                    img2.style.height = "27%";
+                    img2.style.width = "auto";
+                }
             }
         }
-        if(maxW){
-            if(card.children.length > 2){
-                card.children[0].style.width = "40%";
-                card.children[1].style.width = "40%";
-                card.children[0].style.height = "auto";
-                card.children[1].style.height = "auto";
-            }
-        }
+
         card.appendChild(checker);
         booster.appendChild(card);
     }

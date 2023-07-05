@@ -25,6 +25,7 @@ h1{
 .booster > div{
     display: inline-block;
     padding-bottom: 10px;
+    width: fit-content;
 }
 
 .booster > div > img{
