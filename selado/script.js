@@ -98,7 +98,6 @@ async function createBooster(code, number, setYear, setName){
             if(maxW){
                 img1.style.height = "27%";
                 img1.style.width = "auto";
-                console.log("Width menor que 500px: " + maxW);
             }
         } catch(error){
             if(data["card_faces"].length > 1){
